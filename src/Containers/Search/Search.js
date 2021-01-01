@@ -10,14 +10,14 @@ function Search(props) {
   const { searchName } = useParams();
 
   const { data, isLoading, error } = ApiSearchMovies(searchName);
-  console.log(data);
+  console.log("✅", data);
 
   if (isLoading) {
     <p>loading</p>;
   }
 
   if (error) {
-    console.log("🔥" + error);
+    console.log("🔥", error);
   }
 
   return (
