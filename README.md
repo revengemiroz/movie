@@ -4,9 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Packages installed
 
-1. React Router
-2. React Query
-3. Styled Components
+1. [React Router](https://reactrouter.com/)
+2. [React Query](https://react-query.tanstack.com/)
+3. [Styled Components](https://styled-components.com/)
+4. [React Icons](https://react-icons.github.io/react-icons/)
 
 ## Available Scripts
 
