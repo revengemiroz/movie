@@ -7,30 +7,31 @@ import Header from '../../Components/Header/Header';
 import MovieList from '../../Components/MovieList/MovieList';
 
 function Search(props) {
-	const { searchName } = useParams();
+    const { searchName } = useParams();
 
-	const { data, isLoading, error } = ApiSearchMovies(searchName);
-	console.log('✅', data);
+    const { data, isLoading, error } = ApiSearchMovies(searchName);
+    console.log('✅', data);
 
-	if (isLoading) {
-		<p>loading</p>;
-	}
+    if (isLoading) {
+        <p>loading</p>;
+    }
 
-	if (error) {
-		console.log('🔥', error);
-	}
+    if (error) {
+        console.log('🔥', error);
+    }
 
-	return (
-		<div
-			style={{
-				display: 'flex',
-				width: '100%',
-				flexDirection: 'column',
-			}}>
-			<Header title="movies" subtitle="movies" />
-			{data && <MovieList movies={data.results} />}
-		</div>
-	);
+    return (
+        <div
+            style={{
+                display: 'flex',
+                width: '100%',
+                flexDirection: 'column',
+            }}
+        >
+            <Header title={searchName} subtitle="SEARCH RESULTS" />
+            {data && <MovieList movies={data.results} />}
+        </div>
+    );
 }
 
 export default Search;

@@ -4,27 +4,28 @@ import MovieList from '../../Components/MovieList/MovieList';
 import UpcomingApi from '../../api/UpcomingApi';
 
 const Upcoming = (props) => {
-	const { data, error, isLoading } = UpcomingApi();
+    const { data, error, isLoading } = UpcomingApi();
 
-	if (isLoading) {
-		<p>loading</p>;
-	}
+    if (isLoading) {
+        <p>loading</p>;
+    }
 
-	if (error) {
-		console.log('🔥', error);
-	}
+    if (error) {
+        console.log('🔥', error);
+    }
 
-	return (
-		<div
-			style={{
-				display: 'flex',
-				width: '100%',
-				flexDirection: 'column',
-			}}>
-			<Header title="Top Rated" subtitle="movies" />
-			{data && <MovieList movies={data.results} />}
-		</div>
-	);
+    return (
+        <div
+            style={{
+                display: 'flex',
+                width: '100%',
+                flexDirection: 'column',
+            }}
+        >
+            <Header title="Upcoming" subtitle="movies" />
+            {data && <MovieList movies={data.results} />}
+        </div>
+    );
 };
 
 export default Upcoming;
