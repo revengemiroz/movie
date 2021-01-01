@@ -8,14 +8,14 @@ import { MoviesWrapper } from "./style";
 import { IMAGE_BASE_URL } from "../../configuration";
 
 function MovieList({ movies }) {
-  if (movies.results.length === 0) {
+  if (!movies) {
     return null;
   }
 
   return (
     <div>
       <MoviesWrapper>
-        {movies.results.map((a, i) => (
+        {movies.map((a, i) => (
           <Card
             key={i}
             img={IMAGE_BASE_URL + "w342" + a.poster_path}

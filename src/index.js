@@ -4,15 +4,20 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import { ThemeProvider } from "styled-components";
 import Theme from "./utils/theme";
 import GlobalStyle from "./utils/globals";
 
+const queryClient = new QueryClient();
+
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={Theme}>
-      <App />
-      <GlobalStyle />
+      <QueryClientProvider client={queryClient}>
+        <App />
+        <GlobalStyle />
+      </QueryClientProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById("root")
