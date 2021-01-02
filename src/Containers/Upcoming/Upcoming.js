@@ -23,7 +23,7 @@ const Upcoming = (props) => {
             }}
         >
             <Header title="Upcoming" subtitle="movies" />
-            {data && <MovieList movies={data.results} />}
+            {data && <MovieList movies={data} />}
         </div>
     );
 };

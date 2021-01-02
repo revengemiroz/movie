@@ -23,7 +23,7 @@ const TopRated = (props) => {
             }}
         >
             <Header title="Top Rated" subtitle="movies" />
-            {data && <MovieList movies={data.results} />}
+            {data && <MovieList movies={data} />}
         </div>
     );
 };

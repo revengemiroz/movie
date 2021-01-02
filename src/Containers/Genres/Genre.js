@@ -1,66 +1,54 @@
-import React, { useEffect, useState } from "react";
-import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
 
-import Header from "../../Components/Header/Header";
-import MovieList from "../../Components/MovieList/MovieList";
-import Sidebar from "../../Components/Sidebar/sidebar";
-import SearchBar from "../../Components/SearchBar/SearchBar";
+import { useParams } from 'react-router-dom';
 
-import apiGetGenres from "../../api/apiGetGenres";
+import Header from '../../Components/Header/Header';
+import MovieList from '../../Components/MovieList/MovieList';
+import Sidebar from '../../Components/Sidebar/sidebar';
+import SearchBar from '../../Components/SearchBar/SearchBar';
+
+import GetGenresApi from '../../api/GetGenresApi';
+import GetGenreMovies from '../../api/GetGenreMovies';
 
 function Genre(props) {
-  const { name } = useParams();
+    const { name } = useParams();
 
-  const {
-    data: genreData,
-    isLoading: genreLoading,
-    error: genreError,
-    isFetching: genreFetching,
-    isFetched,
-  } = apiGetGenres();
+    const {
+        data: genreData,
+        isLoading: genreLoading,
+        error: genreError,
+    } = GetGenresApi();
 
-  useEffect(() => {}, [name]);
+    let genreDatas = {};
 
-  let genreDatas = {};
-
-  if (isFetched) {
-    const result = genreData.genres.map((a) => a.name).indexOf(name);
-    if (result > -1) {
-      const datas = genreData.genres.find((a) => a.name === name);
-      genreDatas = datas;
-    } else {
-      //redirect to error page
-      genreDatas = { id: 28, name: "Action" };
+    if (genreData) {
+        const result = genreData.genres.map((a) => a.name).indexOf(name);
+        if (result > -1) {
+            const datas = genreData.genres.find((a) => a.name === name);
+            genreDatas = datas;
+        } else {
+            //redirect to error page
+            genreDatas = { id: 28, name: 'Action' };
+        }
     }
-  }
 
-  const id = genreDatas.id;
+    const id = genreDatas.id;
 
-  const { isLoading, error, data = {}, isFetching } = useQuery(
-    ["genreMovies", genreData?.genres],
-    () =>
-      fetch(
-        `https://api.themoviedb.org/3/discover/movie?api_key=e9f2990250f1310ec6a644a89b5a2053&with_genres=${id}`
-      ).then((res) => res.json()),
-    {
-      enabled: genreData,
-    }
-  );
+    const { data, isLoading, error } = GetGenreMovies(id);
 
-  if (isLoading) return <p>loading</p>;
+    if (isLoading) return <p>loading</p>;
 
-  if (error) return <p>error</p>;
+    if (error) return <p>error</p>;
 
-  return (
-    <div>
-      <SearchBar />
-      {!isLoading && <MovieList movies={data}></MovieList>}
-      <Sidebar />
+    return (
+        <div>
+            <SearchBar />
+            {data && <MovieList movies={data}></MovieList>}
+            <Sidebar />
 
-      <Header title={name} subtitle="movies"></Header>
-    </div>
-  );
+            <Header title={name} subtitle="movies"></Header>
+        </div>
+    );
 }
 
 export default Genre;
